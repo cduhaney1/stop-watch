@@ -34,7 +34,9 @@ class Stopwatch extends Component {
     });
   };
   handleReset = () => {
+    clearInterval(this.timer);
     this.setState({ runningTime: 0, staus: false });
+
   };
   render() {
     const { status, runningTime } = this.state;
