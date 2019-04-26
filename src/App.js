@@ -21,10 +21,20 @@ class Stopwatch extends Component {
     runningTime: 0
   };
   handleClick = () => {
-    this.setState({ runningTime: 5, running: true });
+    this.setState(state => {
+      if (state.status) {
+        clearInterval(this.timer);
+      } else {
+        const startTime = Date.now() - this.state.runningTime;
+        this.timer = setInterval(() => {
+          this.setState({ runningTime: Date.now() - startTime });
+        });
+      }
+      return { status: !state.status };
+    });
   };
   handleReset = () => {
-    this.setState({ runningTime: 0, running: false });
+    this.setState({ runningTime: 0, staus: false });
   };
   render() {
     const { status, runningTime } = this.state;
